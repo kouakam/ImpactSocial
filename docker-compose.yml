@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    ports:
+      - "7001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=ImpactSocialDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True
+      - ConnectionStrings__RedisConnection=redis:6379
+    depends_on:
+      - sqlserver
+      - redis
+    networks:
+      - impactsocial-network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Your_password123
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - impactsocial-network
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - impactsocial-network
+
+volumes:
+  sqlserver_data:
+  redis_data:
+
+networks:
+  impactsocial-network:
+    driver: bridge

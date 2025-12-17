@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>12</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Authors>ImpactSocial Team</Authors>
+    <Copyright>Copyright © 2025 ImpactSocial</Copyright>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+</Project>
