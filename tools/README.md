@@ -27,10 +27,16 @@ pip install python-pptx
 
 ### Utilisation
 
-Pour générer la présentation, exécutez simplement :
+Pour générer la présentation avec le chemin par défaut :
 
 ```bash
 python tools/generate_presentation.py
+```
+
+Pour spécifier un chemin de sortie personnalisé :
+
+```bash
+python tools/generate_presentation.py /chemin/vers/ma-presentation.pptx
 ```
 
 Ou depuis le dossier `tools/` :

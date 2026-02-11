@@ -5,10 +5,15 @@ Script de génération de présentation PowerPoint
 Plateforme de Développement Participatif Local
 
 Usage:
-    python tools/generate_presentation.py
+    python tools/generate_presentation.py [output_path]
+    
+Arguments:
+    output_path (optional): Chemin du fichier de sortie .pptx
+                           Par défaut: docs/presentations/plateforme-developpement-participatif.pptx
 """
 
 import os
+import sys
 from pptx import Presentation
 from pptx.util import Inches, Pt
 from pptx.enum.text import PP_ALIGN
@@ -324,9 +329,10 @@ def generate_presentation(output_path):
     
     # Créer le dossier de sortie si nécessaire
     output_dir = os.path.dirname(output_path)
-    if output_dir and not os.path.exists(output_dir):
+    if output_dir:
         os.makedirs(output_dir, exist_ok=True)
-        print(f"Dossier créé : {output_dir}")
+        if not os.path.exists(output_dir):
+            print(f"Dossier créé : {output_dir}")
     
     # Sauvegarder la présentation
     prs.save(output_path)
@@ -338,15 +344,20 @@ def generate_presentation(output_path):
 
 def main():
     """Point d'entrée principal"""
-    # Chemin de sortie par défaut
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    repo_root = os.path.dirname(script_dir)
-    output_path = os.path.join(repo_root, "docs", "presentations", "plateforme-developpement-participatif.pptx")
+    # Chemin de sortie (soit fourni en argument, soit par défaut)
+    if len(sys.argv) > 1:
+        output_path = sys.argv[1]
+    else:
+        # Chemin par défaut relatif au dépôt
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        repo_root = os.path.dirname(script_dir)
+        output_path = os.path.join(repo_root, "docs", "presentations", "plateforme-developpement-participatif.pptx")
     
     print("=" * 70)
     print("Génération de la présentation PowerPoint")
     print("Plateforme de Développement Participatif Local")
     print("=" * 70)
+    print(f"Fichier de sortie : {output_path}")
     print()
     
     try:
