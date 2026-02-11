@@ -23,12 +23,20 @@ from pptx.util import Inches, Pt
 from pptx.enum.text import PP_ALIGN
 
 
+# Configuration constants for presentation styling
+SLIDE_WIDTH = Inches(10)
+SLIDE_HEIGHT = Inches(7.5)
+BULLET_FONT_SIZE = Pt(18)
+TITLE_FONT_SIZE = Pt(32)
+
+
 def parse_markdown(md_file):
     """Parse the markdown file and extract slides content."""
     with open(md_file, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # Remove the main header
+    # Remove the main markdown document header (not a slide title)
+    # This is the "# Présentation - ..." line at the top of the file
     content = re.sub(r'^# .+\n', '', content, count=1)
     
     # Split by slide sections (## Slide X : ...)
@@ -91,8 +99,8 @@ def parse_markdown(md_file):
 def create_presentation(slides, output_file):
     """Create a PowerPoint presentation from slides data."""
     prs = Presentation()
-    prs.slide_width = Inches(10)
-    prs.slide_height = Inches(7.5)
+    prs.slide_width = SLIDE_WIDTH
+    prs.slide_height = SLIDE_HEIGHT
     
     for idx, slide_data in enumerate(slides):
         # Choose layout based on slide type
@@ -126,7 +134,7 @@ def create_presentation(slides, output_file):
                 
                 p.text = bullet
                 p.level = 0
-                p.font.size = Pt(18)
+                p.font.size = BULLET_FONT_SIZE
         
         # Add notes if present
         if slide_data['notes']:
