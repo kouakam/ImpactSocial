@@ -330,8 +330,9 @@ def generate_presentation(output_path):
     # Créer le dossier de sortie si nécessaire
     output_dir = os.path.dirname(output_path)
     if output_dir:
+        created = not os.path.exists(output_dir)
         os.makedirs(output_dir, exist_ok=True)
-        if not os.path.exists(output_dir):
+        if created:
             print(f"Dossier créé : {output_dir}")
     
     # Sauvegarder la présentation
