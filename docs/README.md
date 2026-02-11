@@ -31,9 +31,8 @@ Pour régénérer la présentation après avoir modifié le contenu markdown :
 # Installer python-pptx si nécessaire
 pip install python-pptx
 
-# Utiliser le script de génération (créer un script similaire à celui utilisé initialement)
-# Le script parse le fichier markdown et génère automatiquement les diapositives
-python3 generate_presentation.py
+# Utiliser le script de génération fourni dans le dépôt
+python3 scripts/generate_presentation.py
 ```
 
 **Structure du fichier markdown source :**
